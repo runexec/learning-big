@@ -9,7 +9,7 @@ Working on =>  something
 Working on =>  new
 ```
 
-Preview output at =>
+Preview output at => <a href="https://rawgithub.com/runexec/learning-big/master/example.html">example.html</a>
 
 ## Prerequisites
 
