@@ -3,7 +3,7 @@
 
 (def style 
   (css [[:table {:padding-left :200px}]
-        [:.menu {:position :fixed
+        [:.menu {:position :absolute
                  :top :80px
                  :left :20px}]
         [:div {:padding :10px :margin :10px}]

@@ -7,7 +7,7 @@
    pred - applied to every word
    words - should be string obviously"
   [wait-ms pred & words]
-  (loop [w words
+  (loop [w (sort words)
          ret {}]
     (if-not (seq w)
       ret
@@ -36,7 +36,7 @@
    [:table 
     [:tr
      [:td 
-      (loop [b builder-results
+      (loop [b (sort builder-results)
              ret []]
         (if-not (seq b)
           (apply str ret)
