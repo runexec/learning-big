@@ -1,6 +1,6 @@
 # learning-big
 
-A tool to build Japanese sentences for study.
+A tool to build Japanese sentences for study. Study guides can be found at http://runexec.github.io/jp/index.html
 
 ```
 $ lein run ./example.html learning something new
