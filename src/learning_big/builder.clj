@@ -1,5 +1,7 @@
 (ns learning-big.builder
   (:require [learning-big.jisho.core :as jc]
+            [learning-big.tangorin.core :as tc]
+            [learning-big.ui :as lbui]
             [hiccup.core :as hc]))
 
 (defn- builder 
@@ -32,7 +34,7 @@
          (conj menu (hc/html menu-url)))))))
 
 (defn- builder->html [builder-results]
-  (jc/html-utf8
+  (lbui/html-utf8
    [:table 
     [:tr
      [:td 
@@ -54,7 +56,14 @@
                      [:p v]]))))))]
      [:td (builder->html-menu builder-results)]]]))
 
-
-(defn eng->jp [& words]
+(defn eng->jp 
+  "Jisho.org"
+  [& words]
   (let [b (apply builder 3000 jc/eng->html words)]
     (builder->html b)))
+
+(defn tangorin-eng->jp
+  "Tangorin.com"
+  [& words]
+  (let [b (apply builder 3000 tc/eng->html words)]
+    (builder->html b)))  

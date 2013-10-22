@@ -1,6 +1,5 @@
 (ns learning-big.jisho.core
   (:require [net.cgrand.enlive-html :as html]
-            [learning-big.jisho.ui :as jui]
             [hiccup.core :as hc]))
 
 (def search-urls
@@ -73,16 +72,6 @@
     (apply str 
            (for [td to-display]
              (hiccup.core/html td)))))
-
-(defn html-utf8 [& body]
-  (hiccup.core/html
-   [:html
-    [:head
-     [:meta {:http-equiv "Content-Type"
-             :content "text/html; charset=utf-8"}]
-     [:style jui/style]]
-    [:body 
-     (hiccup.core/html body)]]))
 
 
 

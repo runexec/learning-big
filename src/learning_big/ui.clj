@@ -1,5 +1,6 @@
-(ns learning-big.jisho.ui
-  (:require [garden.core :refer [css]]))
+(ns learning-big.ui
+  (:require [garden.core :refer [css]]
+            [hiccup.core :as hc]))
 
 (def style 
   (css [[:table {:padding-left :200px}]
@@ -25,3 +26,13 @@
                                  :letter-spacing :0}]
         [:rp {:display :none}]]))
 
+
+(defn html-utf8 [& body]
+  (hiccup.core/html
+   [:html
+    [:head
+     [:meta {:http-equiv "Content-Type"
+             :content "text/html; charset=utf-8"}]
+     [:style style]]
+    [:body 
+     (hiccup.core/html body)]]))
