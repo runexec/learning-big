@@ -56,14 +56,16 @@
                      [:p v]]))))))]
      [:td (builder->html-menu builder-results)]]]))
 
+(def delay 6000)
+
 (defn eng->jp 
   "Jisho.org"
   [& words]
-  (let [b (apply builder 3000 jc/eng->html words)]
+  (let [b (apply builder delay jc/eng->html words)]
     (builder->html b)))
 
 (defn tangorin-eng->jp
   "Tangorin.com"
   [& words]
-  (let [b (apply builder 3000 tc/eng->html words)]
+  (let [b (apply builder delay tc/eng->html words)]
     (builder->html b)))  
