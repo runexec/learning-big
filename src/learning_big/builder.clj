@@ -1,6 +1,7 @@
 (ns learning-big.builder
   (:require [learning-big.jisho.core :as jc]
             [learning-big.tangorin.core :as tc]
+            [learning-big.tatoeba.core :as ta]
             [learning-big.ui :as lbui]
             [hiccup.core :as hc]))
 
@@ -56,7 +57,7 @@
                      [:p v]]))))))]
      [:td (builder->html-menu builder-results)]]]))
 
-(def -delay 6000)
+(def -delay 11000)
 
 (defn eng->jp 
   "Jisho.org"
@@ -69,3 +70,9 @@
   [& words]
   (let [b (apply builder -delay tc/eng->html words)]
     (builder->html b)))  
+
+(defn tatoeba-eng->jp
+  "Tatoeba.com"
+  [& words]
+  (let [b (apply builder -delay ta/eng->html words)]
+    (builder->html b)))

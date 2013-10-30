@@ -3,7 +3,7 @@
 A tool to build Japanese sentences for study. Study guides can be found at http://runexec.github.io/jp/index.html
 
 
-Sources can be either Jisho or Tangorin
+Sources can be either Jisho, Tangorin, or Tatoeba (all lowercase)
 
 ```
 $ lein run tangorin ./example.html bears cats
