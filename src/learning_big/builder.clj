@@ -57,7 +57,7 @@
                      [:p v]]))))))]
      [:td (builder->html-menu builder-results)]]]))
 
-(def -delay 11000)
+(def -delay 6000)
 
 (defn eng->jp 
   "Jisho.org"
@@ -76,3 +76,4 @@
   [& words]
   (let [b (apply builder -delay ta/eng->html words)]
     (builder->html b)))
+

@@ -7,20 +7,36 @@
 
 (defn url->enlive-map [url]
   (let [data (html/html-resource (java.net.URL. url))
-        extract (fn [k] 
-                  (->> [k]
-                       (html/select data)
-                       (map html/text)
-                       (map #(.. % (replace "\n" "")))))]
-    {:jp (extract :div.furigana)
-     :eng (->> (extract :a.text)
-               (partition-all 2)
-               (map first)
-               flatten
-               ;; UTF-8 english only
-               (filter (fn [x]
-                         (if (every? #(<= (int %) 255) x)
-                           x))))}))
+        data-text (->> (html/select data [:div.sentences_set 
+                                          :>
+                                          :div.mainSentence])
+                       (map html/text))
+        data-furigana (->> (html/select data [:div.translations])
+                           (map (fn [x]
+                                  (let [c (:content x)
+                                        xs (filter coll? c)
+                                        xs (drop-while #(-> % :content not) xs)
+                                        coll-only #(filter coll? %)]
+
+                                    ;; drill down to the furigana
+
+                                    (->> xs 
+                                         first 
+                                         :content 
+                                         coll-only
+                                         last 
+                                         last
+                                         coll-only
+                                         first
+                                         coll-only
+                                         last))))
+                           (map html/text)
+                           (map (comp 
+                                 clojure.string/trim
+                                 clojure.string/trimr
+                                 clojure.string/trim-newline)))]
+    {:jp data-furigana
+     :eng data-text}))
 
 
 (defn search-english [s]
@@ -31,12 +47,9 @@
   [search-results]
   (let [{:keys [jp eng]} search-results
         combine (fn [learning trans]
-                  (let [r! #(-> %
-                                (.replace "<a" "<span")
-                                (.replace "</a>" "</span>"))]
-                    (list
-                     [:div {:class :learning} (r! learning)]
-                     (r! trans))))]
+                  (list
+                   [:div {:class :learning} learning]
+                   trans))]
     (for [[e j] (partition-all 2 (interleave eng jp))]
       (combine j e))))
 
